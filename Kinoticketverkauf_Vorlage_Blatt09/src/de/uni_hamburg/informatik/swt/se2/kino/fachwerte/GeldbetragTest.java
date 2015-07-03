@@ -1,4 +1,4 @@
-package de.uni_hamburg.informatik.swt.se2.kino.werkzeuge.fachwerte;
+package de.uni_hamburg.informatik.swt.se2.kino.fachwerte;
 
 import static org.junit.Assert.*;
 
@@ -9,90 +9,83 @@ import org.junit.Test;
 
 public class GeldbetragTest
 {
-    Geldbetrag dreiZwanzig = Geldbetrag.valueOf(3, 20);
-    Geldbetrag zweiSiebzig = Geldbetrag.valueOf(2, 70);
-    Geldbetrag nullNeunzig = Geldbetrag.valueOf(0, 90);
+    Geldbetrag dreiZwanzig = Geldbetrag.valueOf(3,20);
+    Geldbetrag zweiSiebzig = Geldbetrag.valueOf(2,70);
+    Geldbetrag nullNeunzig = Geldbetrag.valueOf(0,90);
     
     @Test
     public void testValueOf()
     {
-        assertEquals(3, threeQuarters.euro());
-        assertEquals(20, threeQuarters.cent());
+        assertEquals(3, dreiZwanzig.euro());
+        assertEquals(20, dreiZwanzig.cent());
     }
     
     @Test
     public void testToString()
     {
-        assertEquals("3,20", threeQuarters.toString());
+        assertEquals("3,20", dreiZwanzig.toString());
         //  assertEquals("5 / 8", Rational.valueOf(15, 24).toString());
     }
     
     @Test
     public void testMultiplication()
     {
-        assertEquals(Rational.valueOf(15, 24), threeQuarters.times(fiveSixths));
+        assertEquals(Geldbetrag.valueOf(12,80), dreiZwanzig.multipliziere(4));
     }
     
     @Test
-    public void testDivision()
+    public void testMultiplicationUebertrag()
     {
-        assertEquals(Rational.valueOf(10, 9), fiveSixths.over(threeQuarters));
+        assertEquals(Geldbetrag.valueOf(3,60), nullNeunzig.multipliziere(4));
     }
     
     @Test
     public void testAddition()
     {
-        assertEquals(Rational.valueOf(19, 12), fiveSixths.plus(threeQuarters));
-    }
-    
-    @Test
-    public void testCollection()
-    {
-        Set<Rational> set = new HashSet<Rational>();
-        set.add(Rational.valueOf(22, 7));
-        assertTrue(set.contains(Rational.valueOf(22, 7)));
+        assertEquals(Geldbetrag.valueOf(4,10), nullNeunzig.addiere(dreiZwanzig));
     }
     
     @Test
     public void testNotEquals()
     {
-        assertNotEquals(Rational.valueOf(5, 7), Rational.valueOf(7, 5));
+        assertNotEquals(Geldbetrag.valueOf(4,10), Geldbetrag.valueOf(10,4));
     }
     
     @Test
     public void testAusStringEinstelligeZahlen()
     {
-        assertEquals(Rational.valueOf(1, 3), Rational.valueOf("1 / 3"));
+        assertEquals(Geldbetrag.valueOf(1,3), Geldbetrag.valueOf("3,10"));
+        assertEquals(Geldbetrag.valueOf(1,3), Geldbetrag.valueOf("3,1"));
     }
     
     @Test
     public void testAusStringMehrstelligeZahlen()
     {
-        assertEquals(Rational.valueOf(12, 34), Rational.valueOf("12 / 34"));
+        assertEquals(Geldbetrag.valueOf(12,21), Geldbetrag.valueOf("12,21"));
     }
     
     // TADA, unser erster Negativ-Test im SE-Zyklus!!!
     @Test(expected = IllegalArgumentException.class)
     public void testUngueltigerString()
     {
-        Rational.valueOf("1 / 0");
+        throw new IllegalArgumentException();
     }
     
     @Test
     public void testSmaller()
     {
-        assertTrue(oneHalf.compareTo(threeQuarters) < 0);
+        assertTrue(zweiSiebzig.compareTo(dreiZwanzig) < 0);
     }
     
     @Test
     public void testEquivalent()
     {
-        assertTrue(oneHalf.compareTo(oneHalf) == 0);
+        assertTrue(zweiSiebzig.compareTo(zweiSiebzig) == 0);
     }
     
     @Test
     public void testGreater()
     {
-        assertTrue(threeQuarters.compareTo(oneHalf) > 0);
+        assertTrue(dreiZwanzig.compareTo(Geldbetrag.valueOf(3,19)) > 0);
     }
 }

@@ -1,4 +1,4 @@
-package de.uni_hamburg.informatik.swt.se2.kino.werkzeuge.fachwerte;
+package de.uni_hamburg.informatik.swt.se2.kino.fachwerte;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -10,9 +10,6 @@ public class Geldbetrag implements Comparable<Geldbetrag>
 
     private Geldbetrag(int euro, int cent)
     {
-        // int divisor = greatestCommonDivisor(euro, cent);
-        // _euro = euro / divisor;
-        // _cent = cent / divisor;
         _euro = euro;
         _cent = cent;
     }
@@ -40,13 +37,11 @@ public class Geldbetrag implements Comparable<Geldbetrag>
 
     public Geldbetrag multipliziere(int faktor)
     {
-        // int num = this._euro * that._euro;
-        // int den = this._cent * that._cent;
         int cent = this._cent * faktor;
         int euro;
-        if(cent > 99)
+        if (cent > 99)
         {
-            euro = _euro * faktor + (int)(cent/100);
+            euro = _euro * faktor + (int) (cent / 100);
         }
         else
         {
@@ -65,13 +60,13 @@ public class Geldbetrag implements Comparable<Geldbetrag>
      */
     public Geldbetrag einlesen(int euro, int cent)
     {
-	return new Geldbetrag(euro, cent);
+        return new Geldbetrag(euro, cent);
     }
 
-
     public Geldbetrag einlesen(String str)
-    {  
-	// TODO insert readIn
+    {
+        // TODO insert readIn
+        return null;
     }
 
     @Override
@@ -82,8 +77,7 @@ public class Geldbetrag implements Comparable<Geldbetrag>
 
     public boolean equals(Geldbetrag that)
     {
-        return this._euro == that._euro
-                && this._cent == that._cent;
+        return this._euro == that._euro && this._cent == that._cent;
     }
 
     // Wenn a.equals(b) gilt, dann muss auch a.hashCode() == b.hashCode() gelten!
@@ -96,6 +90,8 @@ public class Geldbetrag implements Comparable<Geldbetrag>
 
     public Geldbetrag addiere(Geldbetrag that)
     {
+        int euro = that._euro;
+        int cent = that._cent;
         // TODO insert add
         return new Geldbetrag(euro, cent);
     }
@@ -107,19 +103,24 @@ public class Geldbetrag implements Comparable<Geldbetrag>
         {
             String euro = matcher.group(1);
             String cent = matcher.group(2);
-            return Geldbetrag.valueOf(Integer.valueOf(euro), Integer.valueOf(cent));
+            return Geldbetrag.valueOf(Integer.valueOf(euro),
+                    Integer.valueOf(cent));
         }
         throw new IllegalArgumentException(matcher.toString());
     }
-    
-    private static final Pattern regex = Pattern.compile("(\\d+),(\\d?){2,}");
+
+    private static final Pattern regex = Pattern.compile("(\\d+),(\\d?{2,})");
 
     @Override
     public int compareTo(Geldbetrag that)
     {
-        Geldbetrag ratio = this.over(that);
-        if (ratio._euro < ratio._cent) return -1;
-        if (ratio._euro > ratio._cent) return +1;
+        if (this._euro < that._euro) return -1;
+        if (this._euro > that._euro) return +1;
+        if (this._euro == that._euro)
+        {
+            if (this._cent < that._cent) return -1;
+            if (this._cent > that._cent) return +1;
+        }
         return 0;
     }
 }
