@@ -22,6 +22,7 @@ public class Vorstellung
     private Uhrzeit _anfangszeit;
     private Uhrzeit _endzeit;
     private Datum _datum;
+    //TODO
     private int _preis;
     private boolean[][] _verkauft;
     private int _anzahlVerkauftePlaetze;
@@ -58,7 +59,7 @@ public class Vorstellung
         assert anfangszeit != null : "Vorbedingung verletzt: anfangszeit != null";
         assert endzeit != null : "Vorbedingung verletzt: endzeit != null";
         assert datum != null : "Vorbedingung verletzt: datum != null";
-        assert preis > 0: "Vorbedingung verletzt: preis > 0";
+        assert preis > 0 : "Vorbedingung verletzt: preis > 0";
 
         _kinosaal = kinosaal;
         _film = film;
@@ -66,8 +67,7 @@ public class Vorstellung
         _endzeit = endzeit;
         _datum = datum;
         _preis = preis;
-        _verkauft = new boolean[kinosaal.getAnzahlReihen()][kinosaal
-                .getAnzahlSitzeProReihe()];
+        _verkauft = new boolean[kinosaal.getAnzahlReihen()][kinosaal.getAnzahlSitzeProReihe()];
         _anzahlVerkauftePlaetze = 0;
     }
 

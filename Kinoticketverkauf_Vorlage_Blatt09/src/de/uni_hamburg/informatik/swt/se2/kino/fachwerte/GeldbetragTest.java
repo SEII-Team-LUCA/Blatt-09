@@ -9,83 +9,88 @@ import org.junit.Test;
 
 public class GeldbetragTest
 {
-    Geldbetrag dreiZwanzig = Geldbetrag.valueOf(3,20);
-    Geldbetrag zweiSiebzig = Geldbetrag.valueOf(2,70);
-    Geldbetrag nullNeunzig = Geldbetrag.valueOf(0,90);
-    
+    Geldbetrag dreiZwanzig = Geldbetrag.valueOf(3, 20);
+    Geldbetrag zweiSiebzig = Geldbetrag.valueOf(2, 70);
+    Geldbetrag nullNeunzig = Geldbetrag.valueOf(0, 90);
+
     @Test
     public void testValueOf()
     {
         assertEquals(3, dreiZwanzig.euro());
         assertEquals(20, dreiZwanzig.cent());
     }
-    
+
     @Test
     public void testToString()
     {
         assertEquals("3,20", dreiZwanzig.toString());
-        //  assertEquals("5 / 8", Rational.valueOf(15, 24).toString());
     }
-    
+
     @Test
     public void testMultiplication()
     {
-        assertEquals(Geldbetrag.valueOf(12,80), dreiZwanzig.multipliziere(4));
+        assertEquals(Geldbetrag.valueOf(12, 80), dreiZwanzig.multipliziere(4));
     }
-    
+
     @Test
     public void testMultiplicationUebertrag()
     {
-        assertEquals(Geldbetrag.valueOf(3,60), nullNeunzig.multipliziere(4));
+        assertEquals(Geldbetrag.valueOf(3, 60), nullNeunzig.multipliziere(4));
     }
-    
+
     @Test
     public void testAddition()
     {
-        assertEquals(Geldbetrag.valueOf(4,10), nullNeunzig.addiere(dreiZwanzig));
+        assertEquals(Geldbetrag.valueOf(4, 10),
+                nullNeunzig.addiere(dreiZwanzig));
     }
-    
+
     @Test
     public void testNotEquals()
     {
-        assertNotEquals(Geldbetrag.valueOf(4,10), Geldbetrag.valueOf(10,4));
+        assertNotEquals(Geldbetrag.valueOf(4, 10), Geldbetrag.valueOf(10, 4));
     }
-    
+
     @Test
     public void testAusStringEinstelligeZahlen()
     {
-        assertEquals(Geldbetrag.valueOf(1,3), Geldbetrag.valueOf("3,10"));
-        assertEquals(Geldbetrag.valueOf(1,3), Geldbetrag.valueOf("3,1"));
+        assertEquals(Geldbetrag.valueOf(1, 3), Geldbetrag.valueOf("3,10"));
+        assertEquals(Geldbetrag.valueOf(1, 3), Geldbetrag.valueOf("3,1"));
     }
-    
+
     @Test
     public void testAusStringMehrstelligeZahlen()
     {
-        assertEquals(Geldbetrag.valueOf(12,21), Geldbetrag.valueOf("12,21"));
+        assertEquals(Geldbetrag.valueOf(12, 21), Geldbetrag.valueOf("12,21"));
     }
-    
-    // TADA, unser erster Negativ-Test im SE-Zyklus!!!
+
     @Test(expected = IllegalArgumentException.class)
     public void testUngueltigerString()
     {
         throw new IllegalArgumentException();
     }
-    
+
+    @Test
+    public void testMinus()
+    {
+        //TODO
+    }
+
     @Test
     public void testSmaller()
     {
         assertTrue(zweiSiebzig.compareTo(dreiZwanzig) < 0);
     }
-    
+
     @Test
     public void testEquivalent()
     {
         assertTrue(zweiSiebzig.compareTo(zweiSiebzig) == 0);
     }
-    
+
     @Test
     public void testGreater()
     {
-        assertTrue(dreiZwanzig.compareTo(Geldbetrag.valueOf(3,19)) > 0);
+        assertTrue(dreiZwanzig.compareTo(Geldbetrag.valueOf(3, 19)) > 0);
     }
 }

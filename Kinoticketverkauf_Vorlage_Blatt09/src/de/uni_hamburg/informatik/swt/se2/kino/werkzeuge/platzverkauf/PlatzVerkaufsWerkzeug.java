@@ -123,6 +123,7 @@ public class PlatzVerkaufsWerkzeug
      */
     private void aktualisierePreisanzeige(Set<Platz> plaetze)
     {
+        //TODO
         _ausgewaehlterGesamtbetrag = 0;
         if (istVerkaufenMoeglich(plaetze))
         {
