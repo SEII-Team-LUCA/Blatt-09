@@ -63,10 +63,17 @@ public class GeldbetragTest
     }
 
     @Test
+    public void testEquals()
+    {
+        assertTrue(Geldbetrag.valueOf(4, 10).equals(dreiZwanzig.addiere(nullNeunzig)));
+    }
+
+    @Test
     public void testAusStringEinstelligeZahlen()
     {
-        assertEquals(Geldbetrag.valueOf(1, 3), Geldbetrag.valueOf("3,10"));
-        assertEquals(Geldbetrag.valueOf(1, 3), Geldbetrag.valueOf("3,1"));
+        assertEquals(Geldbetrag.valueOf(3, 10), Geldbetrag.valueOf("3,10"));
+        assertEquals(Geldbetrag.valueOf(3, 10), Geldbetrag.valueOf("3,1"));
+        assertNotEquals(Geldbetrag.valueOf(3, 1), Geldbetrag.valueOf("3,01"));
     }
 
     @Test

@@ -11,21 +11,44 @@ public class Geldbetrag implements Comparable<Geldbetrag>
 
     private Geldbetrag(int euro, int cent)
     {
-        _euro = euro;
-        _cent = cent;
-        _eurocent = (euro * 100) + cent;
+        if (euro >= 0)
+        {
+            _euro = euro;
+            _cent = cent;
+            _eurocent = (euro * 100) + cent;
+        }
+        else
+        {
+            _euro = euro;
+            _cent = -cent;
+            _eurocent = (euro * 100) - cent;
+        }
     }
 
     private Geldbetrag(int eurocent)
     {
-        _euro = (int) (eurocent / 100);
-        _cent = eurocent % 100;
-        _eurocent = eurocent;
+        if (eurocent >= 0)
+        {
+            _euro = (int) (eurocent / 100);
+            _cent = eurocent % 100;
+            _eurocent = eurocent;
+        }
+        else
+        {
+            _euro = (int) (eurocent / 100);
+            _cent = -eurocent % 100;
+            _eurocent = eurocent;
+        }
     }
 
     public static Geldbetrag valueOf(int euro, int cent)
     {
         return new Geldbetrag(euro, cent);
+    }
+    
+    public static Geldbetrag valueOf(int eurocent)
+    {
+        return new Geldbetrag(eurocent);
     }
 
     public int euro()
@@ -51,11 +74,12 @@ public class Geldbetrag implements Comparable<Geldbetrag>
 
     public Geldbetrag multipliziere(int faktor)
     {
-        int cent = this._cent * faktor;
         int euro;
+        int cent = _cent * faktor;
         if (cent > 99)
         {
-            euro = _euro * faktor + (int) (cent / 100);
+            euro = _euro * faktor + (int)(cent / 100);
+            cent = cent % 100;
         }
         else
         {
@@ -139,16 +163,21 @@ public class Geldbetrag implements Comparable<Geldbetrag>
         Matcher matcher = regex.matcher(string);
         if (matcher.matches())
         {
-            String euro = matcher.group(1);
-            String cent = matcher.group(2);
+            int euro = Integer.valueOf(matcher.group(1));
+            int cent = Integer.valueOf(matcher.group(2));
+            if (cent < 10)
+            {
+                cent *= 10;
+            }
+            int eurocent = (euro * 100) + cent;
+            
             // TODO 0,01 =|= 0,1
-            return Geldbetrag.valueOf(Integer.valueOf(euro),
-                    Integer.valueOf(cent));
+                return Geldbetrag.valueOf(eurocent);
         }
         throw new IllegalArgumentException(matcher.toString());
     }
 
-    private static final Pattern regex = Pattern.compile("(\\d+),(\\d?{2,})");
+    private static final Pattern regex = Pattern.compile("(\\d+),((\\d?){2})");
 
     @Override
     public int compareTo(Geldbetrag that)
