@@ -75,6 +75,12 @@ public class GeldbetragTest
     }
 
     @Test
+    public void testNachkommastellen()
+    {
+        assertNotEquals(Geldbetrag.valueOf(4, 1), Geldbetrag.valueOf(4, 01));
+    }
+
+    @Test
     public void testAusStringEinstelligeZahlen()
     {
         assertEquals(Geldbetrag.valueOf(3, 10), Geldbetrag.valueOf("3,10"));
