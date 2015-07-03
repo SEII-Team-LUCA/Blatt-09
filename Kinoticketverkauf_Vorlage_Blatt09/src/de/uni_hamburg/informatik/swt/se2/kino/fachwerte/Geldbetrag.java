@@ -165,7 +165,6 @@ public class Geldbetrag implements Comparable<Geldbetrag>
 
     public static Geldbetrag valueOf(String string)
     {
-        // TODO 0,01 =|= 0,1
         Matcher matcher = regex.matcher(string);
         if (matcher.matches())
         {
@@ -176,9 +175,16 @@ public class Geldbetrag implements Comparable<Geldbetrag>
                 cent = Integer.valueOf(matcher.group(2));
             else
                 cent = 0;
-            if (cent < 10)
+
+            // TODO CHECK 0,01 =|= 0,1
+            if (string.contains(","))
             {
-                cent *= 10;
+                Pattern regex2 = Pattern.compile(",([1-9])");
+                Matcher matcher2 = regex2.matcher(string.substring(string.indexOf(',')));
+                if (matcher2.matches())
+                {
+                    cent *= 10;
+                }
             }
             int eurocent = (euro * 100) + cent;
 

@@ -77,7 +77,7 @@ public class GeldbetragTest
     @Test
     public void testNachkommastellen()
     {
-        assertNotEquals(Geldbetrag.valueOf(4, 1), Geldbetrag.valueOf(4, 01));
+        assertNotEquals(Geldbetrag.valueOf("4,1"), Geldbetrag.valueOf("4,01"));
     }
 
     @Test
@@ -85,7 +85,7 @@ public class GeldbetragTest
     {
         assertEquals(Geldbetrag.valueOf(3, 10), Geldbetrag.valueOf("3,10"));
         assertEquals(Geldbetrag.valueOf(3, 10), Geldbetrag.valueOf("3,1"));
-        assertNotEquals(Geldbetrag.valueOf(3, 1), Geldbetrag.valueOf("3,01"));
+        assertEquals(Geldbetrag.valueOf(3, 1), Geldbetrag.valueOf("3,01"));
     }
 
     @Test
