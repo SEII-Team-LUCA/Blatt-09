@@ -24,6 +24,12 @@ public class GeldbetragTest
     }
 
     @Test
+    public void testUnvollstaendigerString()
+    {
+        assertEquals(Geldbetrag.valueOf("3,2").toString(), dreiZwanzig.toString());
+    }
+
+    @Test
     public void testMultiplication()
     {
         assertEquals(Geldbetrag.valueOf(12, 80), dreiZwanzig.multipliziere(4));
