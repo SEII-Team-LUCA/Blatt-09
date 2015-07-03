@@ -7,6 +7,7 @@ import java.util.Set;
 
 import javax.swing.JPanel;
 
+import de.uni_hamburg.informatik.swt.se2.kino.fachwerte.Geldbetrag;
 import de.uni_hamburg.informatik.swt.se2.kino.fachwerte.Platz;
 import de.uni_hamburg.informatik.swt.se2.kino.materialien.Kinosaal;
 import de.uni_hamburg.informatik.swt.se2.kino.materialien.Vorstellung;
@@ -24,7 +25,8 @@ import de.uni_hamburg.informatik.swt.se2.kino.werkzeuge.barzahlung.BarzahlungsWe
  */
 public class PlatzVerkaufsWerkzeug
 {
-    private int _ausgewaehlterGesamtbetrag;
+  //TODO CHECK Geldbetrag eingefügt
+    private Geldbetrag _ausgewaehlterGesamtbetrag;
     // Die aktuelle Vorstellung, deren Plätze angezeigt werden. Kann null sein.
     private Vorstellung _vorstellung;
 
@@ -97,7 +99,6 @@ public class PlatzVerkaufsWerkzeug
     private void fuehreBarzahlungDurch()
     {
         // TODO für Blatt 8: Verkaufen ohne Barzahlungswerkzeug
-        //TODO
         _barzahlungsWerkzeug.fuehreBarzahlungDurch(_ausgewaehlterGesamtbetrag);
         if (_barzahlungsWerkzeug.barzahlungErfolgreich())
         {
@@ -123,20 +124,21 @@ public class PlatzVerkaufsWerkzeug
      */
     private void aktualisierePreisanzeige(Set<Platz> plaetze)
     {
-        //TODO
-        _ausgewaehlterGesamtbetrag = 0;
+        //TODO CHECK Geldbetrag eingefügt
+        //TODO CHECK Eurocent-Anzeige ändern
+        _ausgewaehlterGesamtbetrag = Geldbetrag.valueOf(0);
         if (istVerkaufenMoeglich(plaetze))
         {
-            int preis = _vorstellung.getPreisFuerPlaetze(plaetze);
+            Geldbetrag preis = _vorstellung.getPreisFuerPlaetze(plaetze);
             _ui.getPreisLabel().setText(
-                    "Gesamtpreis: " + preis + " Eurocent");
+                    "Gesamtpreis: " + preis + " Euro");
             _ausgewaehlterGesamtbetrag = preis;
         }
         else if (istStornierenMoeglich(plaetze))
         {
-            int preis = _vorstellung.getPreisFuerPlaetze(plaetze);
+            Geldbetrag preis = _vorstellung.getPreisFuerPlaetze(plaetze);
             _ui.getPreisLabel().setText(
-                    "Gesamtstorno: " + preis + " Eurocent");
+                    "Gesamtstorno: " + preis + " Euro");
         }
         else if (!plaetze.isEmpty())
         {
@@ -146,7 +148,7 @@ public class PlatzVerkaufsWerkzeug
         else
         {
             _ui.getPreisLabel().setText(
-                    "Gesamtpreis: 0 Eurocent");
+                    "Gesamtpreis: 0,00 Euro,Eurocent");
         }
     }
 

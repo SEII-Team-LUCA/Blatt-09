@@ -88,7 +88,7 @@ public class GeldbetragTest
         assertEquals(Geldbetrag.valueOf(12, 21), Geldbetrag.valueOf("12,21"));
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test(expected = NumberFormatException.class)
     public void testUngueltigerString()
     {
         Geldbetrag.valueOf(",,");

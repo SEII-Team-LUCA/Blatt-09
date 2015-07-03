@@ -3,6 +3,8 @@ package de.uni_hamburg.informatik.swt.se2.kino.fachwerte;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import javax.swing.JOptionPane;
+
 public class Geldbetrag implements Comparable<Geldbetrag>
 {
     private final int _euro;
@@ -45,7 +47,7 @@ public class Geldbetrag implements Comparable<Geldbetrag>
     {
         return new Geldbetrag(euro, cent);
     }
-    
+
     public static Geldbetrag valueOf(int eurocent)
     {
         return new Geldbetrag(eurocent);
@@ -69,7 +71,10 @@ public class Geldbetrag implements Comparable<Geldbetrag>
     @Override
     public String toString()
     {
-        return _euro + "," + _cent;
+        if (_cent > 9)
+            return _euro + "," + _cent;
+        else if (_cent > 0) return _euro + ",0" + _cent;
+        return _euro + ",00";
     }
 
     public Geldbetrag multipliziere(int faktor)
@@ -78,7 +83,7 @@ public class Geldbetrag implements Comparable<Geldbetrag>
         int cent = _cent * faktor;
         if (cent > 99)
         {
-            euro = _euro * faktor + (int)(cent / 100);
+            euro = _euro * faktor + (int) (cent / 100);
             cent = cent % 100;
         }
         else
@@ -160,24 +165,39 @@ public class Geldbetrag implements Comparable<Geldbetrag>
 
     public static Geldbetrag valueOf(String string)
     {
+        // TODO 0,01 =|= 0,1
         Matcher matcher = regex.matcher(string);
         if (matcher.matches())
         {
             int euro = Integer.valueOf(matcher.group(1));
-            int cent = Integer.valueOf(matcher.group(2));
+            int cent;
+            if (!matcher.group(2)
+                .isEmpty())
+                cent = Integer.valueOf(matcher.group(2));
+            else
+                cent = 0;
             if (cent < 10)
             {
                 cent *= 10;
             }
             int eurocent = (euro * 100) + cent;
-            
-            // TODO 0,01 =|= 0,1
-                return Geldbetrag.valueOf(eurocent);
+
+            return Geldbetrag.valueOf(eurocent);
         }
-        throw new IllegalArgumentException(matcher.toString());
+        fehler();
+        throw new NumberFormatException(matcher.toString());
     }
 
-    private static final Pattern regex = Pattern.compile("(\\d+),((\\d?){2})");
+    private static void fehler()
+    {
+        JOptionPane error = new JOptionPane(JOptionPane.OK_OPTION);
+        JOptionPane.showMessageDialog(error,
+                "Bitte nur sinnvolle Geldbeträge eingeben.", "Warnung",
+                JOptionPane.WARNING_MESSAGE);
+        error.setVisible(true);
+    }
+
+    private static final Pattern regex = Pattern.compile("(\\d+),?(\\d?\\d?)");
 
     @Override
     public int compareTo(Geldbetrag that)
@@ -185,5 +205,11 @@ public class Geldbetrag implements Comparable<Geldbetrag>
         if (this._eurocent < that._eurocent) return -1;
         if (this._eurocent > that._eurocent) return +1;
         return 0;
+    }
+
+    public Geldbetrag betrag()
+    {
+        if (_eurocent < 0) return new Geldbetrag(-_eurocent);
+        return new Geldbetrag(_eurocent);
     }
 }
