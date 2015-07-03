@@ -85,7 +85,7 @@ public class GeldbetragTest
     @Test(expected = IllegalArgumentException.class)
     public void testUngueltigerString()
     {
-        throw new IllegalArgumentException();
+        Geldbetrag.valueOf(",,");
     }
 
     @Test
