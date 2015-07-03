@@ -148,7 +148,7 @@ public class PlatzVerkaufsWerkzeug
         else
         {
             _ui.getPreisLabel().setText(
-                    "Gesamtpreis: 0,00 Euro,Eurocent");
+                    "Gesamtpreis: 0,00 Euro");
         }
     }
 
