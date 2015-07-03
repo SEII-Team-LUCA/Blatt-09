@@ -46,6 +46,13 @@ public class GeldbetragTest
     }
 
     @Test
+    public void testSubtraktion()
+    {
+        assertEquals(Geldbetrag.valueOf(2, 30),
+                dreiZwanzig.minus(nullNeunzig));
+    }
+
+    @Test
     public void testNotEquals()
     {
         assertNotEquals(Geldbetrag.valueOf(4, 10), Geldbetrag.valueOf(10, 4));

@@ -7,11 +7,20 @@ public class Geldbetrag implements Comparable<Geldbetrag>
 {
     private final int _euro;
     private final int _cent;
+    private final int _eurocent;
 
     private Geldbetrag(int euro, int cent)
     {
         _euro = euro;
         _cent = cent;
+        _eurocent = (euro * 100) + cent;
+    }
+    
+    private Geldbetrag(int eurocent)
+    {
+        _euro = (int)(eurocent / 100);
+        _cent = eurocent % 100;
+        _eurocent = eurocent;
     }
 
     public static Geldbetrag valueOf(int euro, int cent)
@@ -27,6 +36,11 @@ public class Geldbetrag implements Comparable<Geldbetrag>
     public int cent()
     {
         return _cent;
+    }
+    
+    public int eurocent()
+    {
+        return _eurocent;
     }
 
     @Override
@@ -77,7 +91,7 @@ public class Geldbetrag implements Comparable<Geldbetrag>
 
     public boolean equals(Geldbetrag that)
     {
-        return this._euro == that._euro && this._cent == that._cent;
+        return this._eurocent == that._eurocent;
     }
 
     // Wenn a.equals(b) gilt, dann muss auch a.hashCode() == b.hashCode() gelten!
@@ -90,10 +104,18 @@ public class Geldbetrag implements Comparable<Geldbetrag>
 
     public Geldbetrag addiere(Geldbetrag that)
     {
-        int euro = that._euro;
-        int cent = that._cent;
-        // TODO insert add
-        return new Geldbetrag(euro, cent);
+        int eurocent = that._eurocent;
+        int ergebnis = _eurocent + eurocent;
+        
+        return new Geldbetrag(ergebnis);
+    }
+
+    public Geldbetrag minus(Geldbetrag that)
+    {
+        int eurocent = that._eurocent;
+        int ergebnis = _eurocent - eurocent;
+        
+        return new Geldbetrag(ergebnis);
     }
 
     public static Geldbetrag valueOf(String string)
@@ -103,6 +125,7 @@ public class Geldbetrag implements Comparable<Geldbetrag>
         {
             String euro = matcher.group(1);
             String cent = matcher.group(2);
+            // TODO 0,01 =|= 0,1
             return Geldbetrag.valueOf(Integer.valueOf(euro),
                     Integer.valueOf(cent));
         }
@@ -114,13 +137,8 @@ public class Geldbetrag implements Comparable<Geldbetrag>
     @Override
     public int compareTo(Geldbetrag that)
     {
-        if (this._euro < that._euro) return -1;
-        if (this._euro > that._euro) return +1;
-        if (this._euro == that._euro)
-        {
-            if (this._cent < that._cent) return -1;
-            if (this._cent > that._cent) return +1;
-        }
+        if (this._eurocent < that._eurocent) return -1;
+        if (this._eurocent > that._eurocent) return +1;
         return 0;
     }
 }
