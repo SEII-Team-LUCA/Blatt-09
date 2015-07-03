@@ -15,10 +15,10 @@ public class Geldbetrag implements Comparable<Geldbetrag>
         _cent = cent;
         _eurocent = (euro * 100) + cent;
     }
-    
+
     private Geldbetrag(int eurocent)
     {
-        _euro = (int)(eurocent / 100);
+        _euro = (int) (eurocent / 100);
         _cent = eurocent % 100;
         _eurocent = eurocent;
     }
@@ -37,7 +37,7 @@ public class Geldbetrag implements Comparable<Geldbetrag>
     {
         return _cent;
     }
-    
+
     public int eurocent()
     {
         return _eurocent;
@@ -79,8 +79,24 @@ public class Geldbetrag implements Comparable<Geldbetrag>
 
     public Geldbetrag einlesen(String str)
     {
-        // TODO insert readIn
-        return null;
+        int euro;
+        int cent;
+        int eurocent;
+
+        if (str.contains(","))
+        {
+            euro = Integer.parseInt(str.substring(0, str.indexOf(',')));
+            cent = Integer.parseInt(str.substring(str.indexOf(',') + 1));
+            eurocent = (euro * 100) + cent;
+        }
+        else
+        {
+            euro = Integer.parseInt(str);
+            cent = 0;
+            eurocent = (euro * 100) + cent;
+        }
+
+        return new Geldbetrag(eurocent);
     }
 
     @Override
@@ -106,7 +122,7 @@ public class Geldbetrag implements Comparable<Geldbetrag>
     {
         int eurocent = that._eurocent;
         int ergebnis = _eurocent + eurocent;
-        
+
         return new Geldbetrag(ergebnis);
     }
 
@@ -114,7 +130,7 @@ public class Geldbetrag implements Comparable<Geldbetrag>
     {
         int eurocent = that._eurocent;
         int ergebnis = _eurocent - eurocent;
-        
+
         return new Geldbetrag(ergebnis);
     }
 

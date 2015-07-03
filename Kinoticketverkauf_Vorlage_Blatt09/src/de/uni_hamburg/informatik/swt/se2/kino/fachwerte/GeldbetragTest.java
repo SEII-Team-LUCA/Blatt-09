@@ -2,9 +2,6 @@ package de.uni_hamburg.informatik.swt.se2.kino.fachwerte;
 
 import static org.junit.Assert.*;
 
-import java.util.HashSet;
-import java.util.Set;
-
 import org.junit.Test;
 
 public class GeldbetragTest
@@ -53,6 +50,13 @@ public class GeldbetragTest
     }
 
     @Test
+    public void testNegativesErgebnis()
+    {
+        assertEquals(Geldbetrag.valueOf(-2, 30),
+                nullNeunzig.minus(dreiZwanzig));
+    }
+
+    @Test
     public void testNotEquals()
     {
         assertNotEquals(Geldbetrag.valueOf(4, 10), Geldbetrag.valueOf(10, 4));
@@ -75,12 +79,6 @@ public class GeldbetragTest
     public void testUngueltigerString()
     {
         throw new IllegalArgumentException();
-    }
-
-    @Test
-    public void testMinus()
-    {
-        //TODO
     }
 
     @Test
