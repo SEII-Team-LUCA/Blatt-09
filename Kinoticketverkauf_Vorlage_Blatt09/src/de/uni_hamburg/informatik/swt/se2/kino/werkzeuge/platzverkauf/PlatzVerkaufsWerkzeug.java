@@ -25,7 +25,7 @@ import de.uni_hamburg.informatik.swt.se2.kino.werkzeuge.barzahlung.BarzahlungsWe
  */
 public class PlatzVerkaufsWerkzeug
 {
-  //TODO CHECK Geldbetrag eingefügt
+  // TODO CHECK Geldbetrag eingefügt
     private Geldbetrag _ausgewaehlterGesamtbetrag;
     // Die aktuelle Vorstellung, deren Plätze angezeigt werden. Kann null sein.
     private Vorstellung _vorstellung;
@@ -124,8 +124,8 @@ public class PlatzVerkaufsWerkzeug
      */
     private void aktualisierePreisanzeige(Set<Platz> plaetze)
     {
-        //TODO CHECK Geldbetrag eingefügt
-        //TODO CHECK Eurocent-Anzeige ändern
+        // TODO CHECK Geldbetrag eingefügt
+        // TODO CHECK Eurocent-Anzeige ändern
         _ausgewaehlterGesamtbetrag = Geldbetrag.valueOf(0);
         if (istVerkaufenMoeglich(plaetze))
         {

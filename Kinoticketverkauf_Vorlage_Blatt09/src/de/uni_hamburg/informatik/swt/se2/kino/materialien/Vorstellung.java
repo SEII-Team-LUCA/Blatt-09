@@ -23,7 +23,7 @@ public class Vorstellung
     private Uhrzeit _anfangszeit;
     private Uhrzeit _endzeit;
     private Datum _datum;
-    //TODO CHECK Geldbetrag eingefügt
+    // TODO CHECK Geldbetrag eingefügt
     private Geldbetrag _preis;
     private boolean[][] _verkauft;
     private int _anzahlVerkauftePlaetze;

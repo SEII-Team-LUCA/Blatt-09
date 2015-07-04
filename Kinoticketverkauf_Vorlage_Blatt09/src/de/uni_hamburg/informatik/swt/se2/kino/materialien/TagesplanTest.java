@@ -11,8 +11,8 @@ import de.uni_hamburg.informatik.swt.se2.kino.fachwerte.FSK;
 import de.uni_hamburg.informatik.swt.se2.kino.fachwerte.Geldbetrag;
 import de.uni_hamburg.informatik.swt.se2.kino.fachwerte.Uhrzeit;
 
-//TODO CHECK Geldbetrag eingefügt
-//Und die Tests repariert! (Scheiterten alle dadran, dass sie einen Preis von 0 hatten, also Preis = 1 gesetzt.)
+// TODO CHECK Geldbetrag eingefügt
+// Und die Tests repariert! (Scheiterten alle dadran, dass sie einen Preis von 0 hatten, also Preis = 1 gesetzt.)
 public class TagesplanTest
 {
     private static final Datum _datum = Datum.get(1, 1, 2010);

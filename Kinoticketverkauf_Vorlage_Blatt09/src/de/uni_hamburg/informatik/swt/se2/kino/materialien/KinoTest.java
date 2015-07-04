@@ -16,7 +16,7 @@ import de.uni_hamburg.informatik.swt.se2.kino.fachwerte.Geldbetrag;
 import de.uni_hamburg.informatik.swt.se2.kino.fachwerte.Platz;
 import de.uni_hamburg.informatik.swt.se2.kino.fachwerte.Uhrzeit;
 
-//TODO CHECK Geldbetrag eingefügt
+// TODO CHECK Geldbetrag eingefügt
 public class KinoTest
 {
     private Kino _kino;

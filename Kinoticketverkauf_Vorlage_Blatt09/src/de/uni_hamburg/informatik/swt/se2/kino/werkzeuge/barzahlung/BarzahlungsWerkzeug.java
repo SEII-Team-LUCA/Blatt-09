@@ -35,7 +35,7 @@ public class BarzahlungsWerkzeug extends ObservableSubwerkzeug
 {
 
     private BarzahlungsWerkzeugUI _ui;
-    //TODO CHECK Geldbetrag eingefügt
+    // TODO CHECK Geldbetrag eingefügt
     private Geldbetrag _preis;
     private boolean _barzahlungErfolgreich;
     private boolean _ausreichenderGeldbetrag;
@@ -57,7 +57,7 @@ public class BarzahlungsWerkzeug extends ObservableSubwerkzeug
      * 
      * @param _ausgewaehlterGesamtbetrag der einzunehmende Gelbetrag
      */
-    //TODO CHECK Geldbetrag eingefügt
+    // TODO CHECK Geldbetrag eingefügt
     public void fuehreBarzahlungDurch(Geldbetrag _ausgewaehlterGesamtbetrag)
     {
         _preis = _ausgewaehlterGesamtbetrag;
@@ -176,7 +176,7 @@ public class BarzahlungsWerkzeug extends ObservableSubwerkzeug
         }
         try
         {
-            //TODO CHECK Geldbetrag eingefügt
+            // TODO CHECK Geldbetrag eingefügt
             Geldbetrag eingabeBetrag = Geldbetrag.valueOf(eingabePreis);
             Geldbetrag differenz = eingabeBetrag.subtrahiere(_preis)
                 .betrag();
@@ -260,8 +260,8 @@ public class BarzahlungsWerkzeug extends ObservableSubwerkzeug
      * 
      * @param differenz ein eingegebener Betrag
      */
-    //TODO CHECK Geldbetrag eingefügt
-    //TODO CHECK Eurocent-Anzeige ändern
+    // TODO CHECK Geldbetrag eingefügt
+    // TODO CHECK Eurocent-Anzeige ändern
     private void zeigeRestbetrag(Geldbetrag differenz)
     {
         _ui.getRestbetragTextfield()

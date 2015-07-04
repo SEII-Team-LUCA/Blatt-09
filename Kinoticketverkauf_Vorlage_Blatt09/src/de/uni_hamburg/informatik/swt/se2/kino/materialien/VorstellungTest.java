@@ -45,7 +45,7 @@ public class VorstellungTest
         assertEquals(_16_45, v.getAnfangszeit());
         assertEquals(_20_15, v.getEndzeit());
         assertEquals(_11_07_2008, v.getDatum());
-        //TODO CHECK Geldbetrag eingefügt
+        // TODO CHECK Geldbetrag eingefügt
         assertEquals(Geldbetrag.valueOf(1230), v.getPreis());
         assertNotNull(v.toString());
     }
@@ -80,7 +80,7 @@ public class VorstellungTest
                 _11_07_2008, Geldbetrag.valueOf(1230));
         Set<Platz> s = new HashSet<Platz>();
 
-        //TODO CHECK Geldbetrag eingefügt
+        // TODO CHECK Geldbetrag eingefügt
         assertEquals(Geldbetrag.valueOf(0), v.getPreisFuerPlaetze(s));
 
         s.add(Platz.get(5, 5));
