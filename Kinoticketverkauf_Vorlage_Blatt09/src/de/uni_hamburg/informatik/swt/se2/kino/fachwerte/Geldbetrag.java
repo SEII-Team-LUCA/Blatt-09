@@ -5,12 +5,26 @@ import java.util.regex.Pattern;
 
 import javax.swing.JOptionPane;
 
+/**
+ * Eine Klasse, um Geldbeträge benutzen zu können, die nur das können sollen, was Geld auch kann.
+ * 
+ * @author Utz
+ *
+ */
 public class Geldbetrag implements Comparable<Geldbetrag>
 {
     private final int _euro;
     private final int _cent;
     private final int _eurocent;
 
+    private static final Pattern regex = Pattern.compile("(\\d+),?(\\d?\\d?)");
+
+    /**
+     * Initialisiert einen Geldbetrag.
+     * 
+     * @param euro Der Euroanteil des Geldbetrags
+     * @param cent Der Centanteil des Geldbetrags
+     */
     private Geldbetrag(int euro, int cent)
     {
         if (euro >= 0)
@@ -27,6 +41,11 @@ public class Geldbetrag implements Comparable<Geldbetrag>
         }
     }
 
+    /**
+     * Initialisiert einen Geldbetrag.
+     * 
+     * @param eurocent Der Gesamtwert des Geldbetrags in Eurocent
+     */
     private Geldbetrag(int eurocent)
     {
         if (eurocent >= 0)
@@ -43,126 +62,38 @@ public class Geldbetrag implements Comparable<Geldbetrag>
         }
     }
 
+    /**
+     * Erstellt einen neuen Geldbetrag aus einem gegebenen Euro- und Centwert.
+     * 
+     * @param euro Der Eurowert des neuen Geldbetrages
+     * @param cent Der Centwert des neuen Geldbetrages
+     * 
+     * @return Der neu entstandene Geldbetrag
+     */
     public static Geldbetrag valueOf(int euro, int cent)
     {
         return new Geldbetrag(euro, cent);
     }
 
+    /**
+     * Erstellt einen neuen Geldbetrag aus einem gegebenen Eurocentwert.
+     * 
+     * @param eurocent Der Gesamtwert des Geldbetrags in Eurocent
+     * 
+     * @return Der neu entstandene Geldbetrag
+     */
     public static Geldbetrag valueOf(int eurocent)
     {
         return new Geldbetrag(eurocent);
     }
 
-    public int euro()
-    {
-        return _euro;
-    }
-
-    public int cent()
-    {
-        return _cent;
-    }
-
-    public int eurocent()
-    {
-        return _eurocent;
-    }
-
-    @Override
-    public String toString()
-    {
-        if (_cent > 9)
-            return _euro + "," + _cent;
-        else if (_cent > 0) return _euro + ",0" + _cent;
-        return _euro + ",00";
-    }
-
-    public Geldbetrag multipliziere(int faktor)
-    {
-        int euro;
-        int cent = _cent * faktor;
-        if (cent > 99)
-        {
-            euro = _euro * faktor + (int) (cent / 100);
-            cent = cent % 100;
-        }
-        else
-        {
-            euro = _euro * faktor;
-        }
-        return new Geldbetrag(euro, cent);
-    }
-
     /**
-     * Erstellt einen neuen Geldbetrag aus einem gegebenen Euro- und Cent-Wert
-     *
-     * @param int euro: Euro-Stellen des neuen Geldbetrages
-     * @param int cent: Cent-Stellen des neuen Geldbetrages
-     *
-     * @return Einen neuen Geldbetrag aus den gegebenen Werten
+     * Versucht, aus einen String einen Geldbetrag zu machen.
+     * 
+     * @param string Die Eingabe, die mal ein Geldbetrag werden will
+     * 
+     * @return Der fertige Geldbetrag
      */
-    public Geldbetrag einlesen(int euro, int cent)
-    {
-        return new Geldbetrag(euro, cent);
-    }
-
-    public Geldbetrag einlesen(String str)
-    {
-        int euro;
-        int cent;
-        int eurocent;
-
-        if (str.contains(","))
-        {
-            euro = Integer.parseInt(str.substring(0, str.indexOf(',')));
-            cent = Integer.parseInt(str.substring(str.indexOf(',') + 1));
-            eurocent = (euro * 100) + cent;
-        }
-        else
-        {
-            euro = Integer.parseInt(str);
-            cent = 0;
-            eurocent = (euro * 100) + cent;
-        }
-
-        return new Geldbetrag(eurocent);
-    }
-
-    @Override
-    public boolean equals(Object obj)
-    {
-        return (obj instanceof Geldbetrag) && equals((Geldbetrag) obj);
-    }
-
-    public boolean equals(Geldbetrag that)
-    {
-        return this._eurocent == that._eurocent;
-    }
-
-    // Wenn a.equals(b) gilt, dann muss auch a.hashCode() == b.hashCode() gelten!
-
-    @Override
-    public int hashCode()
-    {
-        return _euro ^ _cent;
-    }
-
-    public Geldbetrag addiere(Geldbetrag that)
-    {
-        int eurocent = that._eurocent;
-        int ergebnis = _eurocent + eurocent;
-
-        return new Geldbetrag(ergebnis);
-    }
-
-    public Geldbetrag minus(Geldbetrag that)
-    {
-        int eurocent = that._eurocent;
-        int ergebnis = _eurocent - eurocent;
-
-        return new Geldbetrag(ergebnis);
-    }
-
     public static Geldbetrag valueOf(String string)
     {
         Matcher matcher = regex.matcher(string);
@@ -194,6 +125,9 @@ public class Geldbetrag implements Comparable<Geldbetrag>
         throw new NumberFormatException(matcher.toString());
     }
 
+    /**
+     * Eine Fehlermeldung, falls der Eingabestring ungültig war.
+     */
     private static void fehler()
     {
         JOptionPane error = new JOptionPane(JOptionPane.OK_OPTION);
@@ -203,7 +137,125 @@ public class Geldbetrag implements Comparable<Geldbetrag>
         error.setVisible(true);
     }
 
-    private static final Pattern regex = Pattern.compile("(\\d+),?(\\d?\\d?)");
+    /**
+     * Gibt den aktuellen Eurowert des Geldbetrages wieder.
+     * 
+     * @return Der aktuelle Eurowert
+     */
+    public int euro()
+    {
+        return _euro;
+    }
+
+    /**
+     * Gibt den aktuellen Centwert des Geldbetrages wieder.
+     * 
+     * @return Der aktuelle Centwert
+     */
+    public int cent()
+    {
+        return _cent;
+    }
+
+    /**
+     * Gibt den aktuellen Eurocentwert des Geldbetrages wieder.
+     * 
+     * @return Der aktuelle Eurocentwert
+     */
+    public int eurocent()
+    {
+        return _eurocent;
+    }
+
+    /**
+     * Multipliziert den Geldbetrag mit einem Faktor.
+     * 
+     * @param faktor Der Faktor, mit dem der Geldbetrag multipliziert wird
+     * 
+     * @return Der neu entstandene Geldbetrag
+     */
+    public Geldbetrag multipliziere(int faktor)
+    {
+        int euro;
+        int cent = _cent * faktor;
+        if (cent > 99)
+        {
+            euro = _euro * faktor + (int) (cent / 100);
+            cent = cent % 100;
+        }
+        else
+        {
+            euro = _euro * faktor;
+        }
+        return new Geldbetrag(euro, cent);
+    }
+
+    /**
+     * Addiert einen anderen Gedbetrag auf den aktuellen Geldbetrag.
+     * 
+     * @param that Der aufzuaddierende Geldbetrag
+     * 
+     * @return Der neu entstandene Geldbetrag
+     */
+    public Geldbetrag addiere(Geldbetrag that)
+    {
+        int ergebnis = this._eurocent + that._eurocent;
+
+        return new Geldbetrag(ergebnis);
+    }
+
+    /**
+     * Subtrahiert einen anderen Gedbetrag von dem aktuellen Geldbetrag.
+     * 
+     * @param that Der zu subtrahierende Geldbetrag
+     * 
+     * @return Der neu entstandene Geldbetrag
+     */
+    public Geldbetrag subtrahiere(Geldbetrag that)
+    {
+        int ergebnis = this._eurocent - that._eurocent;
+
+        return new Geldbetrag(ergebnis);
+    }
+
+    /**
+     * Gibt den Wert des Geldbetrages, unabhängig vom Vorzeichen aus.
+     * 
+     * @return Der Wert des Geldbetrages, unabhängig vom Vorzeichen
+     */
+    public Geldbetrag betrag()
+    {
+        if (_eurocent < 0) return new Geldbetrag(-_eurocent);
+        return new Geldbetrag(_eurocent);
+    }
+
+    @Override
+    public String toString()
+    {
+        if (_cent > 9)
+            return _euro + "," + _cent;
+        else if (_cent > 0) return _euro + ",0" + _cent;
+        return _euro + ",00";
+    }
+
+    @Override
+    public boolean equals(Object obj)
+    {
+        return (obj instanceof Geldbetrag) && equals((Geldbetrag) obj);
+    }
+
+    public boolean equals(Geldbetrag that)
+    {
+        return this._eurocent == that._eurocent;
+    }
+
+    // Wenn a.equals(b) gilt, dann muss auch a.hashCode() == b.hashCode() gelten!
+
+    @Override
+    public int hashCode()
+    {
+        return _euro ^ _cent;
+    }
 
     @Override
     public int compareTo(Geldbetrag that)
@@ -211,11 +263,5 @@ public class Geldbetrag implements Comparable<Geldbetrag>
         if (this._eurocent < that._eurocent) return -1;
         if (this._eurocent > that._eurocent) return +1;
         return 0;
-    }
-
-    public Geldbetrag betrag()
-    {
-        if (_eurocent < 0) return new Geldbetrag(-_eurocent);
-        return new Geldbetrag(_eurocent);
     }
 }

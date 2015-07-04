@@ -178,7 +178,7 @@ public class BarzahlungsWerkzeug extends ObservableSubwerkzeug
         {
             //TODO CHECK Geldbetrag eingefügt
             Geldbetrag eingabeBetrag = Geldbetrag.valueOf(eingabePreis);
-            Geldbetrag differenz = eingabeBetrag.minus(_preis)
+            Geldbetrag differenz = eingabeBetrag.subtrahiere(_preis)
                 .betrag();
             _ausreichenderGeldbetrag = eingabeBetrag.compareTo(_preis) >= 0;
 
