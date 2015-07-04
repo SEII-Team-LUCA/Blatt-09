@@ -89,6 +89,7 @@ public class Geldbetrag implements Comparable<Geldbetrag>
 
     /**
      * Versucht, aus einen String einen Geldbetrag zu machen.
+     * Sollte dies fehl schlagen, wird eine Fehlermeldung aufgerufen.
      * 
      * @param string Die Eingabe, die mal ein Geldbetrag werden will
      * 
