@@ -68,10 +68,13 @@ public class Geldbetrag implements Comparable<Geldbetrag>
      * @param euro Der Eurowert des neuen Geldbetrages
      * @param cent Der Centwert des neuen Geldbetrages
      * 
+     * @require cent Der Centbetrag muss kleiner als 100 sein.
+     * 
      * @return Der neu entstandene Geldbetrag
      */
     public static Geldbetrag valueOf(int euro, int cent)
     {
+        assert cent<100 : "Centbetrag falsch";
         return new Geldbetrag(euro, cent);
     }
 
@@ -93,10 +96,13 @@ public class Geldbetrag implements Comparable<Geldbetrag>
      * 
      * @param string Die Eingabe, die mal ein Geldbetrag werden will
      * 
+     * @require Der übergebene String darf nicht null sein.
+     * 
      * @return Der fertige Geldbetrag
      */
     public static Geldbetrag valueOf(String string)
     {
+        assert string != null : "Vorbedingung verletzt: null";
         Matcher matcher = regex.matcher(string);
         if (matcher.matches())
         {
@@ -196,10 +202,14 @@ public class Geldbetrag implements Comparable<Geldbetrag>
      * 
      * @param that Der aufzuaddierende Geldbetrag
      * 
+     * @require Der Geldbetrag muss existieren.
+     * 
      * @return Der neu entstandene Geldbetrag
      */
     public Geldbetrag addiere(Geldbetrag that)
     {
+        assert that != null : "Vorbedingung verletzt: null";
+        
         int ergebnis = this._eurocent + that._eurocent;
 
         return new Geldbetrag(ergebnis);
@@ -210,10 +220,14 @@ public class Geldbetrag implements Comparable<Geldbetrag>
      * 
      * @param that Der zu subtrahierende Geldbetrag
      * 
+     * @require Der Geldbetrag muss existieren.
+     * 
      * @return Der neu entstandene Geldbetrag
      */
     public Geldbetrag subtrahiere(Geldbetrag that)
     {
+        assert that != null : "Vorbedingung verletzt: null";
+        
         int ergebnis = this._eurocent - that._eurocent;
 
         return new Geldbetrag(ergebnis);
@@ -248,9 +262,12 @@ public class Geldbetrag implements Comparable<Geldbetrag>
      * Prüft, ob zwei Geldbetraege identisch sind (objektbezogen).
      * 
      * @param Das zu identifizierende Objekt.
+     * 
+     * @require Das Objekt muss existieren.
      */
     public boolean equals(Object obj)
     {
+        assert obj != null : "Vorbedingung verletzt: null";
         return (obj instanceof Geldbetrag) && equals((Geldbetrag) obj);
     }
 
@@ -259,9 +276,13 @@ public class Geldbetrag implements Comparable<Geldbetrag>
      * 
      * @param Der zu identifizierende Geldbetrag.
      * 
+     * @require Der Geldbetrag muss existieren.
+     * 
      */
     public boolean equals(Geldbetrag that)
     {
+        assert that != null : "Vorbedingung verletzt: null";
+        
         return this._eurocent == that._eurocent;
     }
 
@@ -282,10 +303,13 @@ public class Geldbetrag implements Comparable<Geldbetrag>
      * 
      * @param Der zu vergleichende Geldbetrag.
      * 
+     * @require Der Geldbetrag muss existieren.
+     * 
      * @return Int, der einen Vergleichswert angibt.
      */
     public int compareTo(Geldbetrag that)
     {
+        assert that != null : "Vorbedingung verletzt: null";
         if (this._eurocent < that._eurocent) return -1;
         if (this._eurocent > that._eurocent) return +1;
         return 0;
