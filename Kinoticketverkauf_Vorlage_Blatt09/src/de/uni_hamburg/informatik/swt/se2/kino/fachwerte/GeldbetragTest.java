@@ -253,12 +253,22 @@ public class GeldbetragTest
     {
         Geldbetrag.valueOf("9,,");
     }
+    
+    /**
+     * Stellt sicher, dass verschiedene ungültige Eingabestrings nicht aufgenommen werden.
+     */
+    @Test(expected = NumberFormatException.class)
+    public void testUngueltigerString4()
+    { 
+        Geldbetrag.valueOf("9.99");
+    }
 
     /**
-     * Testet, ob ein Geldbetrag kleiner ist als ein anderer.
+     * Testet, ob erkannt wird, dass ein Geldbetrag kleiner ist 
+     * als ein anderer.
      */
     @Test
-    public void testSmaller()
+    public void testKleiner()
     {
         assertTrue(zweiSiebzig.compareTo(dreiZwanzig) < 0);
     }
@@ -267,7 +277,7 @@ public class GeldbetragTest
      * Testet, ob ein negativer Geldbetrag kleiner ist als ein anderer.
      */
     @Test
-    public void testSmallerNegativ()
+    public void testKleinerNegativ()
     {
         assertTrue(minusDreiZwanzig.compareTo(minusZweiSiebzig) < 0);
     }
@@ -276,16 +286,17 @@ public class GeldbetragTest
      * Testet, ob ein Geldbetrag gleich einem andereren ist.
      */
     @Test
-    public void testEquivalent()
+    public void testAequivalent()
     {
         assertTrue(minusDreiZwanzig.compareTo(minusDreiZwanzig) == 0);
     }
 
     /**
-     * Testet, ob ein Geldbetrag größer ist als ein anderer.
+     * Testet, ob erkannt wird, dass ein Geldbetrag größer ist 
+     * als ein anderer.
      */
     @Test
-    public void testGreater()
+    public void testGroesser()
     {
         assertTrue(minusZweiSiebzig.compareTo(minusDreiZwanzig) > 0);
     }

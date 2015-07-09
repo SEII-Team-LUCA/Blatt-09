@@ -299,7 +299,7 @@ public class Geldbetrag implements Comparable<Geldbetrag>
     }
 
     /**
-     * Vergleicht diesen Gledbetrag mit einem anderen Geldbetrag, der uebergeben wird.
+     * Vergleicht diesen Gledbetrag mit einem anderen Geldbetrag, der uebergeben wird. 
      * 
      * @param Der zu vergleichende Geldbetrag.
      * 
