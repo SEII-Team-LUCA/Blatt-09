@@ -230,7 +230,12 @@ public class Geldbetrag implements Comparable<Geldbetrag>
         return new Geldbetrag(_eurocent);
     }
 
-    @Override
+    /**
+     * Gibt einen String aus, der dem Geldbetrag entspricht. 
+     * Bewahrt dabei das Format mit zwei Centstellen.
+     * 
+     * @return Den Geldbetrag als String
+     */
     public String toString()
     {
         if (_cent > 9)
@@ -239,12 +244,22 @@ public class Geldbetrag implements Comparable<Geldbetrag>
         return _euro + ",00";
     }
 
-    @Override
+    /**
+     * Prüft, ob zwei Geldbetraege identisch sind (objektbezogen).
+     * 
+     * @param Das zu identifizierende Objekt.
+     */
     public boolean equals(Object obj)
     {
         return (obj instanceof Geldbetrag) && equals((Geldbetrag) obj);
     }
 
+    /**
+     * Prüft, ob zwei Geldbetraege identisch sind.
+     * 
+     * @param Der zu identifizierende Geldbetrag.
+     * 
+     */
     public boolean equals(Geldbetrag that)
     {
         return this._eurocent == that._eurocent;
@@ -252,13 +267,23 @@ public class Geldbetrag implements Comparable<Geldbetrag>
 
     // Wenn a.equals(b) gilt, dann muss auch a.hashCode() == b.hashCode() gelten!
 
-    @Override
+    /**
+     * Erstellt einen HashCode fuer einen Geldbetrag, sodass der gleiche Geldbetrag 
+     * auch den gleichen HashCode aufweist.
+     * 
+     */
     public int hashCode()
     {
         return _euro ^ _cent;
     }
 
-    @Override
+    /**
+     * Vergleicht diesen Gledbetrag mit einem anderen Geldbetrag, der uebergeben wird.
+     * 
+     * @param Der zu vergleichende Geldbetrag.
+     * 
+     * @return Int, der einen Vergleichswert angibt.
+     */
     public int compareTo(Geldbetrag that)
     {
         if (this._eurocent < that._eurocent) return -1;
