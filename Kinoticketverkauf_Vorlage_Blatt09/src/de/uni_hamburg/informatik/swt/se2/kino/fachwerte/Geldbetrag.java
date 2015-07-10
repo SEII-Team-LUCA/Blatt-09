@@ -11,7 +11,7 @@ import javax.swing.JOptionPane;
  * @author Utz
  *
  */
-public class Geldbetrag implements Comparable<Geldbetrag>
+public final class Geldbetrag implements Comparable<Geldbetrag>
 {
     private final int _euro;
     private final int _cent;
@@ -69,12 +69,14 @@ public class Geldbetrag implements Comparable<Geldbetrag>
      * @param cent Der Centwert des neuen Geldbetrages
      * 
      * @require cent Der Centbetrag muss kleiner als 100 sein.
+     * @require cent Der Centbetrag muss größer gleich 0 sein.
      * 
      * @return Der neu entstandene Geldbetrag
      */
     public static Geldbetrag valueOf(int euro, int cent)
     {
         assert cent<100 : "Centbetrag falsch";
+        assert cent>=0 : "Centbetrag falsch";
         
         return new Geldbetrag(euro, cent);
     }
@@ -130,20 +132,7 @@ public class Geldbetrag implements Comparable<Geldbetrag>
 
             return Geldbetrag.valueOf(eurocent);
         }
-        fehler();
         throw new NumberFormatException(matcher.toString());
-    }
-
-    /**
-     * Eine Fehlermeldung, falls der Eingabestring ungültig war.
-     */
-    private static void fehler()
-    {
-        JOptionPane error = new JOptionPane(JOptionPane.OK_OPTION);
-        JOptionPane.showMessageDialog(error,
-                "Bitte nur sinnvolle Geldbeträge eingeben.", "Warnung",
-                JOptionPane.WARNING_MESSAGE);
-        error.setVisible(true);
     }
 
     /**

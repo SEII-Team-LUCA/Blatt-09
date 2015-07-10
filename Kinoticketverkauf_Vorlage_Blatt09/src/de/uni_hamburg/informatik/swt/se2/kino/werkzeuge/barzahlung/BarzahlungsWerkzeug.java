@@ -7,6 +7,8 @@ import java.awt.event.KeyEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 
+import javax.swing.JOptionPane;
+
 import de.uni_hamburg.informatik.swt.se2.kino.fachwerte.Geldbetrag;
 import de.uni_hamburg.informatik.swt.se2.kino.werkzeuge.ObservableSubwerkzeug;
 
@@ -177,6 +179,7 @@ public class BarzahlungsWerkzeug extends ObservableSubwerkzeug
         try
         {
             // TODO CHECK Geldbetrag eingefügt
+            // TODO CHECK Fehlerfenster eingefügt
             Geldbetrag eingabeBetrag = Geldbetrag.valueOf(eingabePreis);
             Geldbetrag differenz = eingabeBetrag.subtrahiere(_preis)
                 .betrag();
@@ -188,8 +191,21 @@ public class BarzahlungsWerkzeug extends ObservableSubwerkzeug
         {
             _ausreichenderGeldbetrag = false;
             zeigeFehlertext();
+            fehler();
         }
         zeigeAusreichenderGeldbetragStatus();
+    }
+
+    /**
+     * Eine Fehlermeldung, falls der Eingabestring ungültig war.
+     */
+    private static void fehler()
+    {
+        JOptionPane error = new JOptionPane(JOptionPane.OK_OPTION);
+        JOptionPane.showMessageDialog(error,
+                "Bitte nur sinnvolle Geldbeträge eingeben.", "Warnung",
+                JOptionPane.WARNING_MESSAGE);
+        error.setVisible(true);
     }
 
     /**
