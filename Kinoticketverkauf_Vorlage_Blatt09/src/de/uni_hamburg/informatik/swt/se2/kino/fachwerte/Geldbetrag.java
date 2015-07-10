@@ -17,7 +17,7 @@ public class Geldbetrag implements Comparable<Geldbetrag>
     private final int _cent;
     private final int _eurocent;
 
-    private static final Pattern regex = Pattern.compile("(\\d+),?(\\d?\\d?)");
+    private static final Pattern regex = Pattern.compile("(\\d{0,8})(,(\\d?\\d?))?");
 
     /**
      * Initialisiert einen Geldbetrag.
@@ -110,9 +110,9 @@ public class Geldbetrag implements Comparable<Geldbetrag>
         {
             int euro = Integer.valueOf(matcher.group(1));
             int cent;
-            if (!matcher.group(2)
+            if (matcher.group(3) != null && !matcher.group(3)
                 .isEmpty())
-                cent = Integer.valueOf(matcher.group(2));
+                cent = Integer.valueOf(matcher.group(3));
             else
                 cent = 0;
 
