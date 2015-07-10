@@ -75,6 +75,7 @@ public class Geldbetrag implements Comparable<Geldbetrag>
     public static Geldbetrag valueOf(int euro, int cent)
     {
         assert cent<100 : "Centbetrag falsch";
+        
         return new Geldbetrag(euro, cent);
     }
 
@@ -103,6 +104,7 @@ public class Geldbetrag implements Comparable<Geldbetrag>
     public static Geldbetrag valueOf(String string)
     {
         assert string != null : "Vorbedingung verletzt: null";
+        
         Matcher matcher = regex.matcher(string);
         if (matcher.matches())
         {
@@ -211,8 +213,8 @@ public class Geldbetrag implements Comparable<Geldbetrag>
         assert that != null : "Vorbedingung verletzt: null";
         
         int ergebnis = this._eurocent + that._eurocent;
-
         return new Geldbetrag(ergebnis);
+        
     }
 
     /**
@@ -265,9 +267,11 @@ public class Geldbetrag implements Comparable<Geldbetrag>
      * 
      * @require Das Objekt muss existieren.
      */
+    @Override
     public boolean equals(Object obj)
     {
         assert obj != null : "Vorbedingung verletzt: null";
+        
         return (obj instanceof Geldbetrag) && equals((Geldbetrag) obj);
     }
 
@@ -293,6 +297,7 @@ public class Geldbetrag implements Comparable<Geldbetrag>
      * auch den gleichen HashCode aufweist.
      * 
      */
+    @Override
     public int hashCode()
     {
         return _euro ^ _cent;
@@ -307,9 +312,11 @@ public class Geldbetrag implements Comparable<Geldbetrag>
      * 
      * @return Int, der einen Vergleichswert angibt.
      */
+    @Override
     public int compareTo(Geldbetrag that)
     {
         assert that != null : "Vorbedingung verletzt: null";
+        
         if (this._eurocent < that._eurocent) return -1;
         if (this._eurocent > that._eurocent) return +1;
         return 0;
